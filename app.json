@@ -1,0 +1,38 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/user/index",
+        "pages/index/feedback/feedback",
+        "pages/index/search/search",
+        "pages/index/success/success",
+        "pages/index/content/content"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#8C0000",
+        "navigationBarTitleText": "校园问题反馈",
+        "navigationBarTextStyle": "white",
+        "backgroundColor": "#8C0000",
+        "enablePullDownRefresh": true
+    },
+    "tabBar": {
+        "color": "#7A7E83",
+        "selectedColor": "#3cc51f",
+        "borderStyle": "black",
+        "backgroundColor": "#ffffff",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "iconPath": "image/index.png",
+                "selectedIconPath": "image/index_HL.png",
+                "text": "问题区"
+            },
+            {
+                "pagePath": "pages/user/index",
+                "iconPath": "image/user.png",
+                "selectedIconPath": "image/user_HL.png",
+                "text": "个人中心"
+            }
+        ]
+    }
+}

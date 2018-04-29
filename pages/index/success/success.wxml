@@ -1,0 +1,18 @@
+<!--pages/index/success/success.wxml-->
+<view class="container">
+    <!-- 头部 -->
+    <view class="header">
+        <view class="header-text">填写问题反馈</view>
+    </view>
+    <!-- 提示信息 -->
+    <view class="icon-box">
+        <icon type="success" size="100"></icon>
+        <view class="icon-text">提交成功</view>
+    </view>
+    <!-- 确认按钮 -->
+    <view class="button-box">
+        <button class="confirm-btn" type="primary" bindtap="confirmTap">
+            完成
+        </button>
+    </view>
+</view>

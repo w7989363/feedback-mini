@@ -1,0 +1,49 @@
+<!-- search.wxml -->
+<view class="container">
+    <!-- 搜索栏 -->
+    <view class="header">
+        <image class="search-img" mode="aspectFit" src="{{searchImg}}"></image>
+        <input class="search-input" auto-focus placeholder=" 搜索" bind:confirm="searchTap" value="{{empty}}"></input>
+        <image class="clear-img" mode="aspectFit" src="{{clearImg}}" bindtap="clearTap"></image>
+    </view>
+
+    <!-- 标签栏 -->
+    <view class="tags-box">
+        <view class="tags-tip">分类查找：</view>
+        <block wx:for="{{tags}}" wx:key="id">
+            <view id="{{item.id}}" class="{{item.selected?'tag selected':'tag'}}" bindtap="tagTap">{{item.name}}</view>
+        </block>
+    </view>
+
+    <!-- 问题展示区 -->
+    <view class="feedback-box">
+        <!-- 循环展示每一个反馈 -->
+        <block wx:for="{{feedbackArray}}" wx:key="id">
+            <view class="feedback-header">
+                <!-- 支持数区 -->
+                <view class="feedback-support-box">
+                    <image data-id="{{item.id}}" data-mysupport="{{item.my_support}}" class="support-img" src="{{item.my_support?greenTri:grayTri}}" mode="aspectFit" bind:tap="supportTap"></image>
+                    <view class="support-count">{{item.support}}</view>
+                </view>
+                <!-- 问题展示区 -->
+                <view id="{{item.id}}" class="feedback-info-box" bind:tap="feedbackTap">
+                    <!-- 标题 -->
+                    <view class="feedback-title">{{item.title}}</view>
+                    <!-- 循环展示tags -->
+                    <view class="feedback-tags-box">
+                        <view class="feedback-tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">
+                            {{tag}}
+                        </view>
+                    </view>
+                    <!-- 反馈人 时间 评论数 -->
+                    <view class="other-info-box">
+                        <view class="feedback-wxname">{{item.wx_name}}</view>
+                        <view class="feedback-time">{{item.time}}</view>
+                        <view class="feedback-comment-count">评论数:{{item.comment_count}}</view>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </view>
+    
+</view>

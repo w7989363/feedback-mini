@@ -1,0 +1,82 @@
+<!--pages/index/content/content.wxml-->
+<view class="container">
+    <!-- 头部 -->
+    <view class="header">
+        <view class="header-text">问题详情</view>
+    </view>
+
+    <!-- 问题详情 -->
+    <view class="feedback-box">
+        <view class="feedback-header">
+            <!-- 支持数区 -->
+            <view class="feedback-support-box" >
+                <image class="support-img" src="{{feedback.my_support?greenTri:grayTri}}" mode="aspectFit"  bind:tap="supportTap"></image>
+                <view class="support-count">{{feedback.support}}</view>
+            </view>
+            <!-- 问题展示区 -->
+            <view class="feedback-info-box">
+                <!-- 标题 -->
+                <view class="feedback-title">{{feedback.title}}</view>
+                <!-- 标签 -->
+                <view class="feedback-tags-box">
+                    <view class="feedback-tag" wx:for="{{feedback.tags}}" wx:key="*this">
+                        {{item}}
+                    </view>
+                </view>
+                <!-- 其他信息 -->
+                <view class="other-info-box">
+                    <view class="feedback-wxname">{{feedback.wx_name}}</view>
+                    <view class="feedback-time">{{feedback.time}}</view>
+                </view>
+            </view>
+        </view>
+        
+        <!-- 问题描述 -->
+        <view class="feedback-detail-box">
+            <view class="feedback-detail-tip">问题描述：</view>
+            <view class="feedback-detail">{{feedback.detail}}</view>
+        </view>
+        <!-- 负责人回复 -->
+        <block wx:if="{{feedback.reply!=null}}">
+            <view class="feedback-reply-box">
+                <view class="feedback-reply-tip">负责人回复：</view>
+                <view class="feedback-reply">{{feedback.reply}}</view>
+                <view class="feedback-reply-time">{{feedback.reply_time}}</view>
+            </view>
+        </block>
+    </view>
+
+    <!-- 所有评论 -->
+    <view class="comment-box">
+        <block wx:for="{{comments}}" wx:key="id">
+            <!-- 一条评论 -->
+            <view class="comment-cell">
+                <!-- 头像 -->
+                <image class="userinfo-avatar" src="{{item.avatar_url}}" mode="aspectFit"></image>
+                <!-- 右侧信息 -->
+                <view class="comment-info-box">
+                    <!-- 名字+时间 -->
+                    <view class="comment-other-info-box">
+                        <view class="comment-wxname">{{item.wx_name}}</view>
+                        <view class="comment-time">{{item.time}}</view>
+                    </view>
+                    <!-- 评论 -->
+                    <view class="comment">{{item.comment}}</view>
+                </view>
+            </view>
+        </block>
+    </view>
+
+    <!-- 填写评论区 -->
+    <form bindsubmit="submitTap">
+    <view class="my-comment-box">
+        <textarea name="comment" class="my-comment" placeholder="文明社会，理性评论" maxlength="500" value="{{empty}}"></textarea>
+        <button class="login-btn" hidden="{{hasLogin}}" open-type="getUserInfo" bindgetuserinfo="login">
+            请先登录
+        </button>
+        <button class="submit-btn" formType="submit" loading="{{btn.loading}}" disabled="{{btn.disabled}}" hidden="{{!hasLogin}}">
+            发布评论
+        </button>
+    </view>
+    </form>
+</view>

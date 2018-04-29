@@ -1,0 +1,54 @@
+<!--pages/feedback/feedback.wxml-->
+<view class="container">
+    <!-- 头部 -->
+    <view class="header">
+        <view class="header-text">填写问题反馈</view>
+    </view>
+    <form bindsubmit="submitTap" bindreset="formReset">
+    <!-- 问题填写 -->
+    <view class="feedback-info-box">
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <input name="title" class="weui-input" auto-focus placeholder="请输入标题" maxlength="30"/>
+            </view>
+        </view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <textarea name="detail" class="weui-textarea detail" placeholder="请输入问题描述，最多500字。" maxlength="500"></textarea>
+            </view>
+        </view>
+    </view>
+
+    <!-- 标签组 -->
+    <view class="tags-box weui-cells weui-cells_after-title">
+        <view class="tip">选择问题分类：</view>
+        <block wx:for="{{tags}}" wx:key="id">
+            <view id="{{item.id}}" class="{{item.selected?'tag selected':'tag'}}" bindtap="tagTap">
+                {{item.name}}
+            </view>
+        </block>
+    </view>
+
+    <!-- 联系方式 -->
+    <view class="contact-box">
+        <!-- <view class="tip">联系方式：</view> -->
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <input name="stu_name" class="weui-input" placeholder="姓名" maxlength="20" />
+            </view>
+        </view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <input name="tel" class="weui-input" placeholder="联系电话" type="number"  maxlength="11"/>
+            </view>
+        </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="button-box">
+        <button class="login-btn" hidden="{{hasLogin}}" open-type="getUserInfo" bindgetuserinfo="login">请先登录</button>
+
+        <button class="submit-btn" formType="submit" loading="{{btn.loading}}" disabled="{{btn.disabled}}" hidden="{{!hasLogin}}">提交</button>
+    </view>
+    </form>
+</view>

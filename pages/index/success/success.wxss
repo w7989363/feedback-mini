@@ -1,0 +1,25 @@
+/* pages/feedback/feedback.wxss */
+@import "../../common/header.wxss";
+@import "../../common/lib/weui.wxss";
+
+.header-text{
+    flex-grow: 1;
+    text-align: center;
+}
+
+.icon-box{
+    margin-top: 200rpx;
+}
+
+.icon-text{
+    text-align: center;
+    margin-top: 50rpx;
+}
+
+.button-box{
+    width: 100%;
+}
+
+.confirm-btn{
+    margin: 80rpx 40rpx;
+}

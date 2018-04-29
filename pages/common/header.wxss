@@ -1,0 +1,137 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 80rpx;
+    width: 100%;
+    padding: 5rpx 0;
+    background-color: rgb(140, 0, 0);
+}
+
+.header-text{
+    flex: 1;
+    flex-flow: 1;
+    text-align: center;
+    color: white;
+}
+
+/* 整个反馈显示区域 */
+.feedback-box{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* height: 500rpx; */
+    /* padding: 0rpx 20rpx; */
+    margin-top: 30rpx;
+}
+
+/* 每一个反馈的区域 */
+.feedback-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 20rpx 20rpx;
+    padding: 0rpx 20rpx 40rpx 20rpx;
+    border-bottom: 1rpx solid silver;
+}
+
+/* 每一个反馈的支持信息 */
+.feedback-support-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    width: 15%;
+    /* padding: 0rpx 20rpx; */
+    margin-top: 10rpx;
+    margin-right: 30rpx;
+    border: 1rpx solid silver;
+    border-radius: 10rpx;
+}
+
+/* 每一个反馈的右侧信息 */
+.feedback-info-box{
+    /* flex-flow: 1; */
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+/* 标题 */
+.feedback-title{
+    max-height: 100rpx;
+    font-size: 35rpx;
+    /* 超出限制隐藏 */
+    overflow: hidden; 
+    /* text-overflow: ellipsis; */
+}
+
+/* 标签组 */
+.feedback-tags-box{
+    display: flex;
+    flex-direction: row;
+    max-height: 100rpx;
+    flex-wrap: wrap;
+    overflow: hidden; 
+    margin-top: 8rpx;
+}
+
+/* 每一个标签 */
+.feedback-tag{
+    width: 130rpx;
+    margin: 5rpx 20rpx 5rpx 0;
+    text-align: center;
+    background-color: rgb(240, 240, 240);
+    color: black;
+    overflow: hidden;
+    word-wrap: normal;
+    padding: 3rpx 12rpx;
+    border-radius: 10rpx;
+    font-size: 25rpx;
+}
+
+/* 其他信息组 */
+.other-info-box{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 25rpx;
+    max-height: 80rpx;
+    overflow: hidden; 
+}
+
+/* 微信昵称 */
+.feedback-wxname{
+    margin-right: 30rpx;
+    color: rgb(66, 186, 49);
+}
+
+/* 反馈时间 */
+.feedback-time{
+    margin-right: 30rpx;
+    color: silver;
+}
+
+/* 评论数量 */
+.feedback-comment-count{
+    margin-right: 30rpx;
+    color: silver;
+}
+
+/* 支持三角形图片 */
+.support-img{
+    flex: 0;
+    width: 60rpx;
+    height: 60rpx;
+}
+
+/* 支持数 */
+.support-count{
+    flex: 1;
+    width: 100%;
+    text-align: center;
+    font-size: 35rpx;
+}

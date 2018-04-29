@@ -1,0 +1,76 @@
+/* pages/feedback/feedback.wxss */
+@import "../../common/header.wxss";
+@import "../../common/lib/weui.wxss";
+
+.feedback-info-box{
+    width: 100%;
+}
+
+.detail{
+    font-size: 30rpx;
+}
+
+.tags-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    align-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 10rpx 10rpx;
+    /* background-color: rgb(240, 240, 240); */
+}
+
+.tip{
+    width: 100%;
+    margin: 0rpx 40rpx;
+    font-size: 27rpx;
+    color: rgb(145, 145, 145);
+}
+
+.tag{
+    text-align: center;
+    margin: 20rpx 10rpx;
+    padding: 10rpx 5rpx;
+    width: 150rpx;
+    font-size: 27rpx;
+    /* background-color: white;
+    color: silver; */
+    /* background-color: rgb(240, 240, 240);
+    color: black; */
+    color: silver;
+    border: 1rpx dotted silver;
+    border-radius: 20rpx;
+}
+
+.selected{
+    color: white;
+    background-color: rgb(140, 0, 0);
+    border: 1rpx solid white;
+}
+
+.contact-box{
+    width: 100%;
+    /* padding: 10rpx 10rpx; */
+}
+
+.button-box{
+    /* display: flex;
+    flex-direction: row;
+    align-items: center; */
+    width: 100%;
+}
+
+.submit-btn{
+    /* flex-flow: 1; */
+    margin: 30rpx 40rpx;
+    background-color: rgb(140, 0, 0);
+    color: white;
+}
+.login-btn{
+    /* flex-flow: 1; */
+    margin: 30rpx 40rpx;
+    background-color: rgb(140, 0, 0);
+    color: white;
+}
