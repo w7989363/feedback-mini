@@ -62,7 +62,7 @@ Page({
      */
     onShareAppMessage: function () {
         return {
-            title: '校园问题反馈',
+            title: '校园问题反馈平台',
             path: '/pages/index/index'
         }
     },

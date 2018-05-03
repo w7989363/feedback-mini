@@ -25,8 +25,6 @@ Page({
         loginUrl: "https://feedback.visionwbz.top/api.php/login/login",
         // content获取api
         getUrl: "https://feedback.visionwbz.top/api.php/feedback/getcontent",
-        // 添加评论api
-        postUrl: "https://feedback.visionwbz.top/api.php/feedback/addcomment",
         // 点赞api
         supportUrl: "https://feedback.visionwbz.top/api.php/feedback/support",
         id: 0,
@@ -58,39 +56,6 @@ Page({
                         feedback: res.data.feedback,
                         comments: res.data.comments
                     })
-                }
-                else {
-                    wx.showToast({
-                        title: "出错了",
-                        icon: "none"
-                    })
-                }
-                // 调用自定义回调函数
-                if (typeof callback == "function") {
-                    callback(res)
-                }
-            }
-        })
-    },
-    // 添加一条评论
-    addComment: function (comment, callback) {
-        var that = this
-        wx.request({
-            url: this.data.postUrl,
-            method: "POST",
-            data: {
-                fb_id: this.data.id,
-                userid: wx.getStorageSync("userid"),
-                comment: comment
-            },
-            success: function (res) {
-                res = res.data
-                if (res.status == 1) {
-                    wx.showToast({
-                        title: "评论成功",
-                        icon: ""
-                    })
-                    that.onPullDownRefresh()
                 }
                 else {
                     wx.showToast({
@@ -212,6 +177,7 @@ Page({
         var that = this
         // 发送request获取反馈信息和评论信息
         this.getContent()
+        
     },
     // 下拉刷新
     onPullDownRefresh: function () {
@@ -232,23 +198,9 @@ Page({
      */
     onShareAppMessage: function () {
         return {
-            title: '校园问题反馈',
-            path: '/pages/index/index'
+            title: this.data.feedback.title,
+            path: "/pages/index/content/content?id=" + this.data.id
         }
-    },
-
-    // 提交评论
-    submitTap: function (e) {
-        var comment = util.trim(e.detail.value.comment)
-        if (comment.length == 0) {
-            wx.showToast({
-                title: "评论不能为空",
-                icon: "none"
-            })
-            return
-        }
-        // 发送请求
-        this.addComment(comment)
     },
 
     // 点赞或取消赞

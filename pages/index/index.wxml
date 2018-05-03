@@ -28,11 +28,10 @@
                             {{tag}}
                         </view>
                     </view>
-                    <!-- 反馈人 时间 评论数 -->
+                    <!-- 反馈人 时间 -->
                     <view class="other-info-box">
                         <view class="feedback-wxname">{{item.wx_name}}</view>
                         <view class="feedback-time">{{item.time}}</view>
-                        <view class="feedback-comment-count">评论数:{{item.comment_count}}</view>
                     </view>
                 </view>
                 

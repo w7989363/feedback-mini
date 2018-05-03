@@ -214,6 +214,22 @@ Page({
         var start = order ? this.data.newStart : this.data.hotStart
         this.getFeedback(start, order)
         
+        // 接收回调参数*******并发送给后台
+        if(options.rawdata){
+            wx.request({
+                url: "https://feedback.visionwbz.top/api.php/login/sslogin",
+                method: "POST",
+                data: {
+                    rawdata: options.rawdata
+                },
+                success: function(res) {
+                    res = res.data
+                    if(res.status == 1){
+                        console.log("rawdata response")
+                    }
+                }
+            })
+        }
         
     },
 
@@ -260,7 +276,7 @@ Page({
     // 转发
     onShareAppMessage: function () {
         return {
-            title: '校园问题反馈',
+            title: '校园问题反馈平台',
             path: '/pages/index/index'
         }
     },
@@ -343,8 +359,6 @@ Page({
         this.support(data.id, data.mysupport?0:1, function(res){
             that.data.disabled = false
         })
-        
-        console.log(data)
         
     },
 
