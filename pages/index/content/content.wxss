@@ -16,7 +16,7 @@
 }
 /* 问题描述详情 */
 .feedback-detail{
-    font-size: 27rpx;
+    font-size: 30rpx;
     padding: 10rpx 0rpx;
 }
 
@@ -31,7 +31,7 @@
     color: silver;
 }
 .feedback-reply{
-    font-size: 27rpx;
+    font-size: 30rpx;
     padding: 10rpx 0rpx;
 }
 .feedback-reply-time{

@@ -11,14 +11,12 @@ Page({
      * 页面的初始数据
      */
     data: {
-        userInfo: {},
+        userInfo: null,
         hasUserInfo: false,
         hasLogin: false,
-        // 登录api
-        loginurl: "https://feedback.visionwbz.top/api.php/login/login",
         // 添加反馈问题api
         url: "https://feedback.visionwbz.top/api.php/feedback/addFeedback",
-        tags: app.globalData.tags,
+        tags: [],
         btn: {
             loading: false,
             disabled: false
@@ -29,42 +27,19 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.setData({
-            userInfo: app.globalData.userInfo,
-            hasUserInfo: app.globalData.hasUserInfo,
-            hasLogin: app.globalData.hasLogin
-        })
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
 
     },
 
-    /**
-     * 生命周期函数--监听页面显示
-     */
     onShow: function () {
-
+        this.data.userInfo = app.globalData.userInfo
+        this.data.hasUserInfo = app.globalData.hasUserInfo
+        this.data.hasLogin = app.globalData.hasLogin
+        app.getTags(this)
+        
     },
 
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-        return {
-            title: '校园问题反馈平台',
-            path: '/pages/index/index'
-        }
+    onPullDownRefresh: function () {
+        wx.stopPullDownRefresh()
     },
 
     // 点击了某个tag
@@ -83,26 +58,38 @@ Page({
 
     // 提交反馈按钮被点击
     submitTap: function (e) {  
+        if (this.data.btn.disabled) {
+            return
+        }
+        // 判断登录
+        var that = this
+        if (!this.data.hasLogin) {
+            wx.showModal({
+                title: "登录",
+                content: "请先登录",
+                confirmText: "登录",
+                success: function (res) {
+                    if (res.confirm) {
+                        app.login(that)
+                    }
+                    else {
+                        return
+                    }
+                }
+            })
+            return
+        }
+        // this.data.disabled = true
         var that = this
         var form = e.detail.value
         var tagsArray = this.data.tags
         // 删除空格
         form.title = util.trim(form.title)
         form.detail = util.trim(form.detail)
-        form.stu_name = util.trim(form.stu_name)
-        form.tel = util.trim(form.tel)
         // 填写信息不完整
-        if(form.title == "" || form.detail == "" || form.stu_name == "" || form.tel == ""){
+        if(form.title == "" || form.detail == ""){
             wx.showToast({
                 title: "请填写完整信息",
-                icon: "none"
-            })
-            return
-        }
-        // 表单验证：手机号11位
-        if(form.tel.length != 11){
-            wx.showToast({
-                title: "请输入正确的手机号码",
                 icon: "none"
             })
             return
@@ -183,60 +170,6 @@ Page({
             }
         })
     },
-
-    // 登录
-    login: function (resUser) {
-        if (wx.getStorageSync("userid") != "") {
-            app.globalData.hasLogin = true
-            this.setData({
-                hasLogin: true
-            })
-        }
-        var that = this
-        // 存储用户信息
-        app.globalData.userInfo = resUser.detail.userInfo
-        app.globalData.hasUserInfo = true
-        that.data.userInfo = resUser.detail.userInfo
-        that.data.hasUserInfo = true
-        // 获取code
-        wx.login({
-            success: function (resLogin) {
-                if (resLogin.code) {
-                    // 向后台发送code和用户信息以获取自定义登录态userid
-                    wx.request({
-                        url: that.data.loginurl,
-                        header: {
-                            'Content-Type': 'application/json'
-                        },
-                        data: {
-                            code: resLogin.code,
-                            wx_name: that.data.userInfo.nickName,
-                            avatar_url: that.data.userInfo.avatarUrl
-                        },
-                        success: function (res) {
-                            res = res.data
-                            if (res.status == 1) {
-                                console.log(res)
-                                // 同步存储
-                                wx.setStorageSync("userid", res.userid)
-                                app.globalData.hasLogin = true
-                                that.setData({
-                                    hasLogin: that.data.hasLogin = true
-                                })
-
-                            }
-                            else {
-                                console.log(res.msg)
-                            }
-                        }
-                    })
-                } else {
-                    console.log(res.errMsg)
-                }
-            }
-        })
-    }
-
 
 
 })

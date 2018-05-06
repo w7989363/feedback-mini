@@ -8,7 +8,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        userInfo: {},
+        userInfo: null,
         hasUserInfo: false,
         hasLogin: false,
         // 控制support重复点击
@@ -25,7 +25,7 @@ Page({
         // 点赞api
         supportUrl: "https://feedback.visionwbz.top/api.php/feedback/support",
         // tags的id、selected、name
-        tags: app.globalData.tags,
+        tags: [],
         // feedback展示数组
         feedbackArray: []
     },
@@ -34,9 +34,18 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        
+    },
+
+    onShow: function () {
         this.data.userInfo = app.globalData.userInfo
         this.data.hasUserInfo = app.globalData.hasUserInfo
-        this.data.hasLogin = (wx.getStorageSync("userid") != "")
+        this.data.hasLogin = app.globalData.hasLogin
+        app.getTags(this)
+    },
+
+    onPullDownRefresh: function () {
+        wx.stopPullDownRefresh()
     },
 
     // 发送search请求
@@ -119,6 +128,12 @@ Page({
                         that.data.newStart = 0
                     }
                 }
+                else {
+                    wx.showToast({
+                        title: res.msg,
+                        icon: "none"
+                    })
+                }
                 // 自定义回调函数
                 if (typeof callback == "function") {
                     callback(res)
@@ -130,12 +145,12 @@ Page({
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function () {
-        return {
-            title: '校园问题反馈平台',
-            path: '/pages/index/index'
-        }
-    },
+    // onShareAppMessage: function () {
+    //     return {
+    //         title: '校园问题反馈平台',
+    //         path: '/pages/index/index'
+    //     }
+    // },
     tagTap: function (e) {
         var tags = this.data.tags
         var id = e.target.id
@@ -213,7 +228,7 @@ Page({
                 confirmText: "登录",
                 success: function (res) {
                     if (res.confirm) {
-                        that.login()
+                        app.login(that)
                     }
                     else {
                         return
@@ -225,7 +240,7 @@ Page({
         // fb_id
         var data = e.currentTarget.dataset
         // 判断是点赞还是取消赞
-        that.data.disabled = true
+        this.data.disabled = true
         this.support(data.id, data.mysupport ? 0 : 1, function (res) {
             that.data.disabled = false
         })

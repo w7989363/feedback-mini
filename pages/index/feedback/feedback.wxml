@@ -30,8 +30,7 @@
     </view>
 
     <!-- 联系方式 -->
-    <view class="contact-box">
-        <!-- <view class="tip">联系方式：</view> -->
+    <!-- <view class="contact-box">
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
                 <input name="stu_name" class="weui-input" placeholder="姓名" maxlength="20" />
@@ -42,13 +41,11 @@
                 <input name="tel" class="weui-input" placeholder="联系电话" type="number"  maxlength="11"/>
             </view>
         </view>
-    </view>
+    </view> -->
 
     <!-- 提交按钮 -->
     <view class="button-box">
-        <button class="login-btn" hidden="{{hasLogin}}" open-type="getUserInfo" bindgetuserinfo="login">请先登录</button>
-
-        <button class="submit-btn" formType="submit" loading="{{btn.loading}}" disabled="{{btn.disabled}}" hidden="{{!hasLogin}}">提交</button>
+        <button class="submit-btn" formType="submit" loading="{{btn.loading}}" disabled="{{btn.disabled}}">提交</button>
     </view>
     </form>
 </view>

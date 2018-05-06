@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
     data: {
-        userInfo: {},
+        userInfo: null,
         hasUserInfo: false,
         hasLogin: false,
         // 控制support重复点击
@@ -20,8 +20,6 @@ Page({
         isHideLoadMore: false,
         // 获取反馈列表的api
         getFeedbackUrl: "https://feedback.visionwbz.top/api.php/feedback/getfeedback",
-        // 登录api
-        loginUrl: "https://feedback.visionwbz.top/api.php/login/login",
         // 点赞api
         supportUrl: "https://feedback.visionwbz.top/api.php/feedback/support",
         // 1为最新，0为最热
@@ -89,62 +87,6 @@ Page({
         })
     },
 
-    // 登录
-    login: function () {
-        if (wx.getStorageSync("userid") != "") {
-            app.globalData.hasLogin = true
-            this.setData({
-                hasLogin: true
-            })
-        }
-        var that = this
-        wx.getUserInfo({
-            success: function (resUser) {
-                console.log(resUser)
-                app.globalData.userInfo = resUser.userInfo
-                app.globalData.hasUserInfo = true
-                that.data.userInfo = resUser.userInfo
-                that.data.hasUserInfo = true
-                // 获取code
-                wx.login({
-                    success: function (resLogin) {
-                        if (resLogin.code) {
-                            // 向后台发送code和用户信息以获取自定义登录态userid
-                            wx.request({
-                                url: that.data.loginUrl,
-                                header: {
-                                    'Content-Type': 'application/json'
-                                },
-                                data: {
-                                    code: resLogin.code,
-                                    wx_name: that.data.userInfo.nickName,
-                                    avatar_url: that.data.userInfo.avatarUrl
-                                },
-                                success: function (res) {
-                                    res = res.data
-                                    if (res.status == 1) {
-                                        console.log(res)
-                                        // 同步存储
-                                        wx.setStorageSync("userid", res.userid)
-                                        app.globalData.hasLogin = true
-                                        that.setData({
-                                            hasLogin: that.data.hasLogin = true
-                                        })
-
-                                    }
-                                    else {
-                                        console.log(res.msg)
-                                    }
-                                }
-                            })
-                        } else {
-                            console.log(res.errMsg)
-                        }
-                    }
-                })
-            }
-        })
-    },
 
     // 点赞或取消赞请求
     // id: fb_id
@@ -196,6 +138,12 @@ Page({
                         that.data.newStart = 0
                     }
                 }
+                else {
+                    wx.showToast({
+                        title: res.msg,
+                        icon: "none"
+                    })
+                }
                 // 自定义回调函数
                 if (typeof callback == "function") {
                     callback(res)
@@ -206,30 +154,22 @@ Page({
 
     // 页面加载获取用户信息
     onLoad: function (options) {
-        this.data.userInfo = app.globalData.userInfo
-        this.data.hasUserInfo = app.globalData.hasUserInfo
-        this.data.hasLogin = (wx.getStorageSync("userid") != "")
-        // 已登录获取数据
-        var order = this.data.order
-        var start = order ? this.data.newStart : this.data.hotStart
-        this.getFeedback(start, order)
-        
-        // 接收回调参数*******并发送给后台
-        if(options.rawdata){
-            wx.request({
-                url: "https://feedback.visionwbz.top/api.php/login/sslogin",
-                method: "POST",
-                data: {
-                    rawdata: options.rawdata
-                },
-                success: function(res) {
-                    res = res.data
-                    if(res.status == 1){
-                        console.log("rawdata response")
-                    }
-                }
-            })
+        // 接收回调参数*******
+        if(options.scene){
+            app.globalData.uid = decodeURIComponent(options.scene)
         }
+        else{
+            app.globalData.uid = wx.getStorageSync("userid")
+        }
+        
+        // 登录，刷新主页
+        var that = this
+        app.login(that, function(){
+            // 已登录获取数据
+            var order = that.data.order
+            var start = order ? that.data.newStart : that.data.hotStart
+            that.getFeedback(start, order)
+        })
         
     },
 
@@ -274,12 +214,12 @@ Page({
     },
     
     // 转发
-    onShareAppMessage: function () {
-        return {
-            title: '校园问题反馈平台',
-            path: '/pages/index/index'
-        }
-    },
+    // onShareAppMessage: function () {
+    //     return {
+    //         title: '校园问题反馈平台',
+    //         path: '/pages/index/index'
+    //     }
+    // },
 
     // 搜索按钮响应函数
     searchTap: function (e) {
@@ -336,14 +276,14 @@ Page({
         }
         // 判断登录
         var that = this
-        if (!this.data.hasLogin) {
+        if (!app.globalData.hasLogin) {
             wx.showModal({
                 title: "登录",
                 content: "请先登录",
                 confirmText: "登录",
                 success: function (res) {
                     if (res.confirm) {
-                        that.login()
+                        app.login(that, that.onPullDownRefresh)
                     }
                     else {
                         return

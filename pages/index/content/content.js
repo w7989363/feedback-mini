@@ -11,8 +11,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        empty: "",
-        userInfo: {},
+        userInfo: null,
         hasUserInfo: false,
         hasLogin: false,
         // 控制点赞重复点击
@@ -21,20 +20,13 @@ Page({
         greenTri: "/image/green_tri.png",
         // 灰三角
         grayTri: "/image/gray_tri.png",
-        // 登录api
-        loginUrl: "https://feedback.visionwbz.top/api.php/login/login",
         // content获取api
         getUrl: "https://feedback.visionwbz.top/api.php/feedback/getcontent",
         // 点赞api
         supportUrl: "https://feedback.visionwbz.top/api.php/feedback/support",
         id: 0,
-        btn: {
-            loading: false,
-            disabled: false
-        },
         feedback: {},
-        comments: [],
-        
+
     },
 
     // 获取content的request
@@ -53,8 +45,8 @@ Page({
                 res = res.data
                 if (res.status == 1) {
                     that.setData({
-                        feedback: res.data.feedback,
-                        comments: res.data.comments
+                        feedback: res.feedback,
+                        // comments: res.data.comments
                     })
                 }
                 else {
@@ -66,57 +58,6 @@ Page({
                 // 调用自定义回调函数
                 if (typeof callback == "function") {
                     callback(res)
-                }
-            }
-        })
-    },
-    // 登录
-    login: function (resUser) {
-        if (wx.getStorageSync("userid") != "") {
-            app.globalData.hasLogin = true
-            this.setData({
-                hasLogin: true
-            })
-        }
-        var that = this
-        // 存储用户信息
-        app.globalData.userInfo = resUser.detail.userInfo
-        app.globalData.hasUserInfo = true
-        that.data.userInfo = resUser.detail.userInfo
-        that.data.hasUserInfo = true
-        // 获取code
-        wx.login({
-            success: function (resLogin) {
-                if (resLogin.code) {
-                    // 向后台发送code和用户信息以获取自定义登录态userid
-                    wx.request({
-                        url: that.data.loginUrl,
-                        header: {
-                            'Content-Type': 'application/json'
-                        },
-                        data: {
-                            code: resLogin.code,
-                            wx_name: that.data.userInfo.nickName,
-                            avatar_url: that.data.userInfo.avatarUrl
-                        },
-                        success: function (res) {
-                            res = res.data
-                            if (res.status == 1) {
-                                // 同步存储
-                                wx.setStorageSync("userid", res.userid)
-                                app.globalData.hasLogin = true
-                                that.setData({
-                                    hasLogin: that.data.hasLogin = true
-                                })
-
-                            }
-                            else {
-                                console.log(res.msg)
-                            }
-                        }
-                    })
-                } else {
-                    console.log(res.errMsg)
                 }
             }
         })
@@ -156,6 +97,12 @@ Page({
                         })
                     }
                 }
+                else{
+                    wx.showToast({
+                        title: res.msg,
+                        icon: "none"
+                    })
+                }
                 // 调用自定义回调函数
                 if (typeof callback == "function") {
                     callback(res)
@@ -168,16 +115,14 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.setData({
-            id: options.id,
-            userInfo: app.globalData.userInfo,
-            hasUserInfo: app.globalData.hasUserInfo,
-            hasLogin: (wx.getStorageSync("userid") != "")
-        })
-        var that = this
+        this.data.id = options.id
+        this.data.userInfo = app.globalData.userInfo
+        this.data.hasUserInfo = app.globalData.hasUserInfo
+        this.data.hasLogin = app.globalData.hasLogin
+
         // 发送request获取反馈信息和评论信息
         this.getContent()
-        
+
     },
     // 下拉刷新
     onPullDownRefresh: function () {
@@ -186,22 +131,18 @@ Page({
         this.getContent(function (res) {
             // 停止刷新
             wx.stopPullDownRefresh()
-            // 清空comment
-            that.setData({
-                empty: "",
-            })
         })
     },
 
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage: function () {
-        return {
-            title: this.data.feedback.title,
-            path: "/pages/index/content/content?id=" + this.data.id
-        }
-    },
+    // onShareAppMessage: function () {
+    //     return {
+    //         title: this.data.feedback.title,
+    //         path: "/pages/index/content/content?id=" + this.data.id
+    //     }
+    // },
 
     // 点赞或取消赞
     supportTap: function () {
@@ -217,7 +158,7 @@ Page({
                 confirmText: "登录",
                 success: function (res) {
                     if (res.confirm) {
-                        that.login()
+                        app.login(that, that.onPullDownRefresh)
                     }
                     else {
                         return
@@ -228,7 +169,7 @@ Page({
         }
         this.data.disabled = true
         // 根据my_support提交请求
-        this.support(this.data.id, this.data.feedback.my_support?0:1, function(res){
+        this.support(this.data.id, this.data.feedback.my_support ? 0 : 1, function (res) {
             that.data.disabled = false
         })
     }
