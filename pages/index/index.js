@@ -154,7 +154,7 @@ Page({
 
     // 页面加载获取用户信息
     onLoad: function (options) {
-        // 接收回调参数*******
+        // 接收回调参数
         if(options.scene){
             app.globalData.uid = decodeURIComponent(options.scene)
         }
@@ -164,12 +164,18 @@ Page({
         
         // 登录，刷新主页
         var that = this
-        app.login(that, function(){
-            // 已登录获取数据
-            var order = that.data.order
-            var start = order ? that.data.newStart : that.data.hotStart
+        var order = that.data.order
+        var start = order ? that.data.newStart : that.data.hotStart
+        if(app.globalData.hasLogin){
+            // 已登录直接获取数据
             that.getFeedback(start, order)
-        })
+        }
+        else{
+            // 登录并获取数据
+            app.login(that, function () {
+                that.getFeedback(start, order)
+            })
+        }
         
     },
 

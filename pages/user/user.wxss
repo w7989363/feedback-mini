@@ -1,9 +1,25 @@
 /**index.wxss**/
+@import "../common/header.wxss";
 
+/* 头部 */
+.search-img{
+    width: 10%;
+    height: 60rpx;
+    margin-left: 9rpx;
+}
+
+.add-feedback-img{
+    width: 10%;
+    height: 60rpx;
+    margin-right: 9rpx;
+}
+
+/* 用户信息 */
 .userinfo {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 40rpx;
 }
 
 .userinfo-avatar {
@@ -24,3 +40,5 @@
 .btns {
     margin-top: 50px;
 }
+
+/* navigator */

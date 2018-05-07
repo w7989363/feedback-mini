@@ -1,0 +1,21 @@
+<!--index.wxml-->
+<view class="container">
+    <!-- 头部 -->
+    <view class="header">
+        <image class="search-img" mode="aspectFit" src="{{searchImg}}" bindtap="searchTap"></image>
+        <view class="header-text">个人中心</view>
+        <image class="add-feedback-img" mode="aspectFit" src="{{addFeedbackImg}}" bindtap="addFeedbackTap"></image>
+    </view>
+
+    <view class="userinfo">
+        <button wx:if="{{!hasLogin}}" bindtap="login"> 登录 </button>
+        <block wx:else>
+            <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+            <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        </block>
+    </view>
+
+    <view wx:if="{{hasLogin}}" class="navigator-box">
+        
+    </view>
+</view>

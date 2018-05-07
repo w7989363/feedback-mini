@@ -5,7 +5,7 @@
         <image class="search-img" mode="aspectFit" src="{{searchImg}}" bindtap="searchTap"></image>
         <view class="tab {{(order == 1)?'tab-selected':''}}" bind:tap="newTap">最  新</view>
         <view class="tab {{(order != 1)?'tab-selected':''}}" bind:tap="hotTap">最  热</view>
-        <image class="add-feedback-img" mode="aspectFit" src="{{addFeedbackImg}}" bindtap="addFeedbackTap">></image>
+        <image class="add-feedback-img" mode="aspectFit" src="{{addFeedbackImg}}" bindtap="addFeedbackTap"></image>
     </view>
 
     <!-- 问题展示区 -->

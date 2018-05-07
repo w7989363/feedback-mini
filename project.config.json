@@ -37,9 +37,15 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "scene",
-					"pathName": "pages/index/index",
+					"name": "scene1wtl",
+					"pathName": "pages/user/user",
 					"query": "scene=1"
+				},
+				{
+					"id": -1,
+					"name": "scene24ldx",
+					"pathName": "pages/index/index",
+					"query": "scene=24"
 				}
 			]
 		}
