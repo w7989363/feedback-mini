@@ -1,0 +1,15 @@
+/* pages/user/myFeedback/myFeedback.wxss */
+@import "../../common/header.wxss";
+
+/* 头部 */
+.search-img{
+    width: 10%;
+    height: 60rpx;
+    margin-left: 9rpx;
+}
+
+.add-feedback-img{
+    width: 10%;
+    height: 60rpx;
+    margin-right: 9rpx;
+}

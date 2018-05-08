@@ -5,7 +5,8 @@
         "pages/index/search/search",
         "pages/index/success/success",
         "pages/index/content/content",
-        "pages/user/user"
+        "pages/user/user",
+        "pages/user/feedback/feedback"
     ],
     "window": {
         "backgroundTextStyle": "light",

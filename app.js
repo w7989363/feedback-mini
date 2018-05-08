@@ -111,7 +111,6 @@ App({
         // }
         wx.getUserInfo({
             success: function (resUser) {
-                // console.log(resUser)
                 that.globalData.userInfo = resUser.userInfo
                 that.globalData.hasUserInfo = true
                 obj.data.userInfo = resUser.userInfo
@@ -150,7 +149,7 @@ App({
                                     else {
                                         console.log(res.msg)
                                         wx.showToast({
-                                            title: "登录失败",
+                                            title: that.globalData.uid+":登录失败",
                                             icon: "none"
                                         })
                                     }

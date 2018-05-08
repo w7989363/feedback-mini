@@ -11,6 +11,10 @@ Page({
         // 顶部图标
         addFeedbackImg: "/image/plus.png",
         searchImg: "/image/search.png",
+        // 我的反馈
+        myFeedbackImg: "/image/my_feedback.png",
+        // 我支持的
+        mySupportImg: "/image/my_support.png",
     },
 
     onLoad: function (options) {
@@ -57,4 +61,38 @@ Page({
             })
         })
     },
+
+    // 下拉刷新
+    onPullDownRefresh: function () {
+        wx.stopPullDownRefresh()
+    },
+
+    // 搜索按钮响应函数
+    searchTap: function (e) {
+        wx.navigateTo({
+            url: "../index/search/search"
+        })
+    },
+
+    // 添加反馈按钮响应函数
+    addFeedbackTap: function (e) {
+        wx.navigateTo({
+            url: "../index/feedback/feedback"
+        })
+    },
+
+    // 我提交的反馈
+    myFeedbackTap: function () {
+        wx.navigateTo({
+            url: "feedback/feedback?mode=1"
+        })
+    },
+
+    // 我支持的反馈
+    mySupportTap: function () {
+        wx.navigateTo({
+            url: "feedback/feedback?mode=0"
+        })
+    },
+
 })

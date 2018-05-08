@@ -37,13 +37,13 @@
             <view class="feedback-detail">{{feedback.detail}}</view>
         </view>
         <!-- 负责人回复 -->
-        <block wx:if="{{feedback.reply!=null}}">
+        <!-- <block wx:if="{{feedback.reply!=null}}">
             <view class="feedback-reply-box">
                 <view class="feedback-reply-tip">负责人回复：</view>
                 <view class="feedback-reply">{{feedback.reply}}</view>
                 <view class="feedback-reply-time">{{feedback.reply_time}}</view>
             </view>
-        </block>
+        </block> -->
     </view>
 
 </view>

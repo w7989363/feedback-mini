@@ -6,7 +6,7 @@
         <view class="header-text">个人中心</view>
         <image class="add-feedback-img" mode="aspectFit" src="{{addFeedbackImg}}" bindtap="addFeedbackTap"></image>
     </view>
-
+    <!-- 用户信息 -->
     <view class="userinfo">
         <button wx:if="{{!hasLogin}}" bindtap="login"> 登录 </button>
         <block wx:else>
@@ -14,8 +14,9 @@
             <text class="userinfo-nickname">{{userInfo.nickName}}</text>
         </block>
     </view>
-
+    <!-- 导航按钮 -->
     <view wx:if="{{hasLogin}}" class="navigator-box">
-        
+        <button class="navi-btn" plain="true" type="primary" bindtap="myFeedbackTap">我提交的反馈</button>
+        <button class="navi-btn" plain="true" type="primary" bindtap="mySupportTap">我支持的反馈</button>
     </view>
 </view>

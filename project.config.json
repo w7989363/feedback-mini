@@ -38,14 +38,14 @@
 				{
 					"id": 0,
 					"name": "scene1wtl",
-					"pathName": "pages/user/user",
+					"pathName": "pages/index/index",
 					"query": "scene=1"
 				},
 				{
-					"id": -1,
-					"name": "scene24ldx",
+					"id": 1,
+					"name": "scene25lzz",
 					"pathName": "pages/index/index",
-					"query": "scene=24"
+					"query": "scene=25"
 				}
 			]
 		}
