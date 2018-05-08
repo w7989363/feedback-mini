@@ -20,6 +20,33 @@
     padding: 10rpx 0rpx;
 }
 
+/* 上传图片 */
+.img-box{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    align-content: space-between;
+    flex-wrap: wrap;
+    padding: 10rpx 20rpx 30rpx 20rpx;
+    margin: 20rpx 20rpx;
+    border-bottom: 1rpx solid silver;
+    /* background-color: rgb(240, 240, 240); */
+}
+
+.tip{
+    width: 100%;
+    /* margin: 0rpx 40rpx; */
+    font-size: 30rpx;
+    color: rgb(145, 145, 145);
+}
+
+.upload-img{
+    width: 200rpx;
+    height: 200rpx;
+    margin: 20rpx 0rpx;
+}
+
 /* 负责人回复区域 */
 .feedback-reply-box{
     padding: 10rpx 20rpx 30rpx 20rpx;

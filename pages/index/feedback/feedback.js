@@ -16,11 +16,19 @@ Page({
         hasLogin: false,
         // 添加反馈问题api
         url: "https://feedback.visionwbz.top/api.php/feedback/addFeedback",
+        // 上传图片api
+        uploadUrl: "https://feedback.visionwbz.top/api.php/feedback/uploadimg",
+        // 删除某条反馈
+        deleteUrl: "https://feedback.visionwbz.top/api.php/feedback/deleteFeedback",
         tags: [],
         btn: {
             loading: false,
             disabled: false
-        }
+        },
+        // 是否已经上传图片
+        hasUploadImg: false,
+        // 上传图片
+        uploadImg: "/image/plus.png",
     },
 
     /**
@@ -53,6 +61,23 @@ Page({
         }
         this.setData({
             tags: tags
+        })
+    },
+
+    // 点击选择图片
+    chooseImgTap: function () {
+        var that = this
+        wx.chooseImage({
+            count: 1,	// 默认为9
+            sizeType: ['compress'],	// 指定原图或者压缩图
+            sourceType: ['album', 'camera'],	// 指定图片来源
+            success: function(res) {
+                var tempFilePaths = res.tempFilePaths
+                that.setData({
+                    uploadImg: tempFilePaths[0],
+                    hasUploadImg: true
+                })
+            }
         })
     },
 
@@ -131,29 +156,37 @@ Page({
 
     // 提交反馈信息到api
     addFeedback: function (data, callback) {
+        wx.showToast({
+            title: "正在提交...",
+            icon: "loading",
+            mask: true,
+            duration: 10000
+        })
         var that = this
         wx.request({
             url: that.data.url,
             method: "POST",
             data: data,
             success: function (res) {
+                wx.hideToast()
                 res = res.data
                 if (res.status == 1) {
-                    wx.showToast({
-                        title: "反馈成功",
-                        icon: ""
-                    })
-                    // 跳转到成功页面
-                    setTimeout(function () {
+                    
+                    // 不需要上传图片，直接跳转
+                    if(!that.data.hasUploadImg){
                         wx.redirectTo({
                             url: "../content/content?id=" + res.id
                         })
-                    }, 1500)
+                        return
+                    }
+                    // 上传图片
+                    that.upload(res.id)
+                    
                 }
                 // 提交不成功，btn恢复
                 else {
                     wx.showToast({
-                        title: "出错了",
+                        title: "提交失败",
                         icon: "none"
                     })
                     that.setData({
@@ -170,6 +203,79 @@ Page({
             }
         })
     },
+
+    // 上传图片请求
+    upload: function (fbid, callback) {
+        wx.showToast({
+            title: "正在上传图片...",
+            icon: "loading",
+            mask: true,
+            duration: 10000
+        })
+        var that = this
+        wx.uploadFile({
+            url: that.data.uploadUrl,
+            filePath: that.data.uploadImg,
+            name: "image",
+            formData: {
+                "userid": wx.getStorageSync("userid"),
+                "fb_id": fbid
+            },
+            success: function (res) {
+                wx.hideToast()
+                // 这个接口data返回的是字符串，坑
+                res = JSON.parse(res.data)
+                if (res.status == 1) {
+                    // 跳转到反馈详情
+                    wx.redirectTo({
+                        url: "../content/content?id=" + fbid
+                    })
+                    return
+                }
+                else {
+                    // 图像上传失败，通知后台删除该条反馈
+                    that.deleteFeedback(fbid)
+                    wx.showToast({
+                        title: "上传图片失败",
+                        icon: "none",
+                        duration: 2000
+                    })
+                    that.setData({
+                        btn: {
+                            loading: false,
+                            disabled: false
+                        }
+                    })
+                }
+
+                // 自定义回调函数
+                if (typeof callback == "function") {
+                    callback(res)
+                }
+            }
+        })
+    },
+
+    // 删除某条反馈请求
+    deleteFeedback: function (fbid, callback) {
+        var that = this
+        wx.request({
+            url: that.data.deleteUrl,
+            method: "POST",
+            data: {
+                "userid": wx.getStorageSync("userid"),
+                "fb_id": fbid
+            },
+            success: function(res) {
+                res = res.data
+
+                // 自定义回调函数
+                if(typeof callback == "function"){
+                    callback(res)
+                }
+            }
+        })
+    }
 
 
 })

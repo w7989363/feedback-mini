@@ -172,5 +172,14 @@ Page({
         this.support(this.data.id, this.data.feedback.my_support ? 0 : 1, function (res) {
             that.data.disabled = false
         })
+    },
+
+    // 点击图片放大预览
+    imgTap: function () {
+        var that = this
+        wx.previewImage({
+            current: that.data.feedback.img_url,
+            urls: [that.data.feedback.img_url]
+        })
     }
 })

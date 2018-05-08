@@ -19,6 +19,12 @@
         </view>
     </view>
 
+    <!-- 上传图片 -->
+    <view class="img-box weui-cells weui-cells_after-title">
+        <view class="tip">上传图片（3M限制 可选）：</view>
+        <image class="upload-img" src="{{uploadImg}}" mode="scaleToFill" bindtap="chooseImgTap"></image>
+    </view>
+
     <!-- 标签组 -->
     <view class="tags-box weui-cells weui-cells_after-title">
         <view class="tip">选择问题分类：</view>

@@ -36,6 +36,13 @@
             <view class="feedback-detail-tip">问题描述：</view>
             <view class="feedback-detail">{{feedback.detail}}</view>
         </view>
+
+        <!-- 图片 -->
+        <view wx:if="{{feedback.img_url}}" class="img-box">
+            <view class="tip">图片：</view>
+            <image class="upload-img" src="{{feedback.img_url}}" mode="scaleToFill" bindtap="imgTap"></image>
+        </view>
+
         <!-- 负责人回复 -->
         <!-- <block wx:if="{{feedback.reply!=null}}">
             <view class="feedback-reply-box">
