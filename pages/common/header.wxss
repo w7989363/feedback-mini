@@ -9,6 +9,22 @@
     background-color: rgb(140, 0, 0);
 }
 
+.search-img{
+    width: 10%;
+    height: 50rpx;
+    margin-left: 9rpx;
+}
+
+.add-feedback-img{
+    width: 10%;
+    height: 50rpx;
+    margin-right: 9rpx;
+}
+.clear-img{
+    width: 10%;
+    height: 50rpx;
+    margin-right: 9rpx;
+}
 .header-text{
     flex: 1;
     flex-flow: 1;

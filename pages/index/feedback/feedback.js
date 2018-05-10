@@ -28,7 +28,7 @@ Page({
         // 是否已经上传图片
         hasUploadImg: false,
         // 上传图片
-        uploadImg: "/image/plus.png",
+        uploadImg: "/image/add_pic.png",
     },
 
     /**

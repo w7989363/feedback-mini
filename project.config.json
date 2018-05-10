@@ -46,6 +46,18 @@
 					"name": "scene25lzz",
 					"pathName": "pages/index/index",
 					"query": "scene=25"
+				},
+				{
+					"id": -1,
+					"name": "scene26lrj",
+					"pathName": "pages/index/index",
+					"query": "scene=26"
+				},
+				{
+					"id": -1,
+					"name": "scene24ldx",
+					"pathName": "pages/index/index",
+					"query": "scene=24"
 				}
 			]
 		}

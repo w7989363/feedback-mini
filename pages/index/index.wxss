@@ -1,16 +1,6 @@
 @import "../common/header.wxss";
 
-.search-img{
-    width: 10%;
-    height: 60rpx;
-    margin-left: 9rpx;
-}
 
-.add-feedback-img{
-    width: 10%;
-    height: 60rpx;
-    margin-right: 9rpx;
-}
 
 .tab{
     text-align: center;
