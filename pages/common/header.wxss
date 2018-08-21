@@ -91,7 +91,7 @@
 .feedback-tags-box{
     display: flex;
     flex-direction: row;
-    max-height: 100rpx;
+    /* max-height: 140rpx; */
     flex-wrap: wrap;
     overflow: hidden; 
     margin-top: 8rpx;

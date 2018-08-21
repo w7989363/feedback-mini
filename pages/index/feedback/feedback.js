@@ -43,7 +43,7 @@ Page({
         this.data.hasUserInfo = app.globalData.hasUserInfo
         this.data.hasLogin = app.globalData.hasLogin
         app.getTags(this)
-        
+
     },
 
     onPullDownRefresh: function () {
@@ -82,28 +82,13 @@ Page({
     },
 
     // 提交反馈按钮被点击
-    submitTap: function (e) {  
+    submitTap: function (e) {
         if (this.data.btn.disabled) {
             return
         }
-        // 判断登录
+
         var that = this
-        if (!this.data.hasLogin) {
-            wx.showModal({
-                title: "登录",
-                content: "请先登录",
-                confirmText: "登录",
-                success: function (res) {
-                    if (res.confirm) {
-                        app.login(that)
-                    }
-                    else {
-                        return
-                    }
-                }
-            })
-            return
-        }
+
         // this.data.disabled = true
         var that = this
         var form = e.detail.value
@@ -151,7 +136,7 @@ Page({
         form.userid = wx.getStorageSync("userid")
         // 发送请求，回调函数（失败要解除更改btn状态，成功要跳转到成功页面）
         this.addFeedback(form)
-        
+
     },
 
     // 提交反馈信息到api
@@ -171,7 +156,7 @@ Page({
                 wx.hideToast()
                 res = res.data
                 if (res.status == 1) {
-                    
+
                     // 不需要上传图片，直接跳转
                     if(!that.data.hasUploadImg){
                         wx.redirectTo({
@@ -181,7 +166,7 @@ Page({
                     }
                     // 上传图片
                     that.upload(res.id)
-                    
+
                 }
                 // 提交不成功，btn恢复
                 else {

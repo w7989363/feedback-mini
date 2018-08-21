@@ -149,24 +149,8 @@ Page({
         if (this.data.disabled) {
             return
         }
-        // 判断登录
+        
         var that = this
-        if (!this.data.hasLogin) {
-            wx.showModal({
-                title: "登录",
-                content: "请先登录",
-                confirmText: "登录",
-                success: function (res) {
-                    if (res.confirm) {
-                        app.login(that, that.onPullDownRefresh)
-                    }
-                    else {
-                        return
-                    }
-                }
-            })
-            return
-        }
         this.data.disabled = true
         // 根据my_support提交请求
         this.support(this.data.id, this.data.feedback.my_support ? 0 : 1, function (res) {

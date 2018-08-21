@@ -1,5 +1,5 @@
 // pages/user/myFeedback/myFeedback.js
-//获取应用实例
+// 获取应用实例
 const app = getApp()
 
 Page({
@@ -146,24 +146,8 @@ Page({
         if (this.data.disabled) {
             return
         }
-        // 判断登录
+
         var that = this
-        if (!app.globalData.hasLogin) {
-            wx.showModal({
-                title: "登录",
-                content: "请先登录",
-                confirmText: "登录",
-                success: function (res) {
-                    if (res.confirm) {
-                        app.login(that, that.onPullDownRefresh)
-                    }
-                    else {
-                        return
-                    }
-                }
-            })
-            return
-        }
         // fb_id
         var data = e.currentTarget.dataset
         // 判断是点赞还是取消赞
@@ -191,6 +175,6 @@ Page({
         })
     },
 
-    
+
 
 })

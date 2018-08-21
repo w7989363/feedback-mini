@@ -34,7 +34,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        
+
     },
 
     onShow: function () {
@@ -194,7 +194,7 @@ Page({
             })
             return
         }
-        
+
         // 发送request查询
         var data = {
             search: search,
@@ -219,24 +219,8 @@ Page({
         if (this.data.disabled) {
             return
         }
-        // 判断登录
+
         var that = this
-        if (!this.data.hasLogin) {
-            wx.showModal({
-                title: "登录",
-                content: "请先登录",
-                confirmText: "登录",
-                success: function (res) {
-                    if (res.confirm) {
-                        app.login(that)
-                    }
-                    else {
-                        return
-                    }
-                }
-            })
-            return
-        }
         // fb_id
         var data = e.currentTarget.dataset
         // 判断是点赞还是取消赞

@@ -25,7 +25,7 @@
                 </view>
                 <!-- 其他信息 -->
                 <view class="other-info-box">
-                    <view class="feedback-wxname">{{feedback.wx_name}}</view>
+                    <view class="feedback-wxname">{{feedback.name}}</view>
                     <view class="feedback-time">{{feedback.time}}</view>
                 </view>
             </view>
@@ -44,13 +44,13 @@
         </view>
 
         <!-- 负责人回复 -->
-        <!-- <block wx:if="{{feedback.reply!=null}}">
+        <block wx:if="{{feedback.reply != null && feedback.reply != ''}}">
             <view class="feedback-reply-box">
                 <view class="feedback-reply-tip">负责人回复：</view>
                 <view class="feedback-reply">{{feedback.reply}}</view>
                 <view class="feedback-reply-time">{{feedback.reply_time}}</view>
             </view>
-        </block> -->
+        </block>
     </view>
 
 </view>

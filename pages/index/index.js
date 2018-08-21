@@ -157,26 +157,28 @@ Page({
         // 接收回调参数
         if(options.scene){
             app.globalData.uid = decodeURIComponent(options.scene)
-        }
-        else{
+            wx.setStorageSync('userid', app.globalData.uid)
+        } else {
             app.globalData.uid = wx.getStorageSync("userid")
         }
-        
-        // 登录，刷新主页
-        var that = this
-        var order = that.data.order
-        var start = order ? that.data.newStart : that.data.hotStart
+
+    },
+
+    onShow: function () {
+        // 已登录
         if(app.globalData.hasLogin){
-            // 已登录直接获取数据
-            that.getFeedback(start, order)
-        }
-        else{
-            // 登录并获取数据
-            app.login(that, function () {
-                that.getFeedback(start, order)
+            if(this.data.feedbackArray.length === 0) {
+                const order = this.data.order
+                const start = order ? this.data.newStart : this.data.hotStart
+                this.getFeedback(start, order)
+            }
+
+        } else {
+            // 未登录，跳转到个人中心登录
+            wx.switchTab({
+                url: "/pages/user/user",
             })
         }
-        
     },
 
     // 上滑到底部加载更多
@@ -218,7 +220,7 @@ Page({
             wx.stopPullDownRefresh()
         })
     },
-    
+
     // 转发
     // onShareAppMessage: function () {
     //     return {
@@ -244,7 +246,7 @@ Page({
     // 点击了“最新”tab
     newTap: function (e) {
         // 只有当前标签不是最新时才做响应
-        if (this.data.order == 0) {
+        if (this.data.order === 0) {
             // 改变标签样式，渲染数组赋值，并且显示加载更多
             this.setData({
                 order: 1,
@@ -261,7 +263,7 @@ Page({
     // 点击了“最热”tap
     hotTap: function (e) {
         // 只有当前标签不是最新时才做响应
-        if (this.data.order == 1) {
+        if (this.data.order === 1) {
             // 改变标签样式，渲染数组赋值，并且显示加载更多
             this.setData({
                 order: 0,
@@ -280,24 +282,8 @@ Page({
         if(this.data.disabled){
             return
         }
-        // 判断登录
+
         var that = this
-        if (!app.globalData.hasLogin) {
-            wx.showModal({
-                title: "登录",
-                content: "请先登录",
-                confirmText: "登录",
-                success: function (res) {
-                    if (res.confirm) {
-                        app.login(that, that.onPullDownRefresh)
-                    }
-                    else {
-                        return
-                    }
-                }
-            })
-            return
-        }
         // fb_id
         var data = e.currentTarget.dataset
         // 判断是点赞还是取消赞
@@ -305,7 +291,7 @@ Page({
         this.support(data.id, data.mysupport?0:1, function(res){
             that.data.disabled = false
         })
-        
+
     },
 
     // 进入某个具体问题

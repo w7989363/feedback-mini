@@ -30,7 +30,7 @@
                     </view>
                     <!-- 反馈人 时间 -->
                     <view class="other-info-box">
-                        <view class="feedback-wxname">{{item.wx_name}}</view>
+                        <view class="feedback-wxname">{{item.name}}</view>
                         <view class="feedback-time">{{item.time}}</view>
                     </view>
                 </view>

@@ -15,8 +15,8 @@ const formatNumber = n => {
 }
 
 //删除两侧空格
-function trim(str) {
-    　　return str.replace(/(^\s*)|(\s*$)/g, "")
+const trim = str => {
+    return str.replace(/(^\s*)|(\s*$)/gm, "")
 }
 
 module.exports = {
