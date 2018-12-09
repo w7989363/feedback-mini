@@ -21,12 +21,12 @@ Page({
         // 灰三角
         grayTri: "/image/gray_tri.png",
         // content获取api
-        getUrl: "https://feedback.visionwbz.top/api.php/feedback/getcontent",
+        getUrl: "https://feedback.wentianlin.cn/api.php/feedback/getcontent",
         // 点赞api
-        supportUrl: "https://feedback.visionwbz.top/api.php/feedback/support",
+        supportUrl: "https://feedback.wentianlin.cn/api.php/feedback/support",
         id: 0,
         feedback: {},
-
+        comments: []
     },
 
     // 获取content的request
@@ -45,8 +45,8 @@ Page({
                 res = res.data
                 if (res.status == 1) {
                     that.setData({
-                        feedback: res.feedback,
-                        // comments: res.data.comments
+                        feedback: res.data.feedback,
+                        comments: res.data.comments
                     })
                 }
                 else {
@@ -165,5 +165,38 @@ Page({
             current: that.data.feedback.img_url,
             urls: [that.data.feedback.img_url]
         })
-    }
+    },
+
+    // 添加一条评论
+    addComment: function (comment, callback) {
+        var that = this
+        wx.request({
+            url: this.data.postUrl,
+            method: "POST",
+            data: {
+                fb_id: this.data.id,
+                userid: wx.getStorageSync("userid"),
+                comment: comment
+            },
+            success: function (res) {
+                res = res.data
+                if (res.status == 1) {
+                    wx.showToast({
+                        title: "评论成功",
+                        icon: ""
+                    })
+                    that.onPullDownRefresh()
+                } else {
+                    wx.showToast({
+                        title: "出错了",
+                        icon: "none"
+                    })
+                }
+                // 调用自定义回调函数
+                if (typeof callback == "function") {
+                    callback(res)
+                }
+            }
+        })
+    },
 })

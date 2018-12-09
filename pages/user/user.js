@@ -10,7 +10,7 @@ Page({
         sspkuInfo: {},
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
         // login url
-        loginUrl: "https://feedback.visionwbz.top/api.php/login/login",
+        loginUrl: "https://feedback.wentianlin.cn/api.php/login/login",
         // 顶部图标
         addFeedbackImg: "/image/plus.png",
         searchImg: "/image/search.png",

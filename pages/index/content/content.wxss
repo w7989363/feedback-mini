@@ -66,3 +66,89 @@
     color: silver;
 }
 
+
+/* 评论区 */
+.comment-box{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+/* 一条评论 */
+.comment-cell{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 20rpx 20rpx;
+    padding: 0rpx 30rpx 40rpx 10rpx;
+    border-bottom: 1rpx solid silver;
+}
+/* 头像 */
+.userinfo-avatar {
+    width: 68rpx;
+    height: 68rpx;
+    margin: 5rpx;
+    margin-right: 20rpx;
+    border-radius: 50%;
+}
+/* 右侧评论 */
+.comment-info-box{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+.comment-other-info-box{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 25rpx;
+}
+.comment-wxname{
+    margin-right: 30rpx;
+    color: rgb(66, 186, 49);
+}
+.comment-time{
+    margin-right: 30rpx;
+    color: silver;
+}
+.comment{
+    font-size: 27rpx;
+    
+}
+ /* 填写评论区 */
+.my-comment-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+}
+.my-comment{
+    margin: 30rpx 30rpx;
+    padding: 15rpx 20rpx;
+    font-size: 30rpx;
+    border: 1rpx solid silver;
+    border-radius: 20rpx;
+    box-shadow: 10px 10px 5px #888888;
+}
+.btn-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.submit-btn{
+    align-self: flex-end;
+    background-color: rgb(140, 0, 0);
+    color: white;
+    width: 180rpx;
+    font-size: 30rpx;
+    margin: 20rpx 30rpx 100rpx 0rpx;
+}
+.login-btn{
+    align-self: flex-end;
+    background-color: rgb(140, 0, 0);
+    color: white;
+    width: 180rpx;
+    font-size: 30rpx;
+    margin: 20rpx 30rpx 100rpx 0rpx;
+}

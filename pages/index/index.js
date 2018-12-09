@@ -19,9 +19,9 @@ Page({
         // 底部“加载更多”是否显示，并且控制上滑刷新
         isHideLoadMore: false,
         // 获取反馈列表的api
-        getFeedbackUrl: "https://feedback.visionwbz.top/api.php/feedback/getfeedback",
+        getFeedbackUrl: "https://feedback.wentianlin.cn/api.php/feedback/getfeedback",
         // 点赞api
-        supportUrl: "https://feedback.visionwbz.top/api.php/feedback/support",
+        supportUrl: "https://feedback.wentianlin.cn/api.php/feedback/support",
         // 1为最新，0为最热
         order: 1,
         // 下次请求开始的index
@@ -166,19 +166,22 @@ Page({
 
     onShow: function () {
         // 已登录
-        if(app.globalData.hasLogin){
-            if(this.data.feedbackArray.length === 0) {
-                const order = this.data.order
-                const start = order ? this.data.newStart : this.data.hotStart
-                this.getFeedback(start, order)
-            }
+        // if(app.globalData.hasLogin){
+        //     if(this.data.feedbackArray.length === 0) {
+        //         const order = this.data.order
+        //         const start = order ? this.data.newStart : this.data.hotStart
+        //         this.getFeedback(start, order)
+        //     }
 
-        } else {
-            // 未登录，跳转到个人中心登录
-            wx.switchTab({
-                url: "/pages/user/user",
-            })
-        }
+        // } else {
+        //     // 未登录，跳转到个人中心登录
+        //     wx.switchTab({
+        //         url: "/pages/user/user",
+        //     })
+        // }
+        const order = this.data.order
+        const start = order ? this.data.newStart : this.data.hotStart
+        this.getFeedback(start, order)
     },
 
     // 上滑到底部加载更多

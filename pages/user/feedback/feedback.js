@@ -19,7 +19,7 @@ Page({
         // 获取反馈pai
         getFeedbackUrl: "",
         // 点赞api
-        supportUrl: "https://feedback.visionwbz.top/api.php/feedback/support",
+        supportUrl: "https://feedback.wentianlin.cn/api.php/feedback/support",
         feedbackArray: {},
     },
 
@@ -31,10 +31,10 @@ Page({
             mode: options.mode
         })
         if(options.mode == 1){
-            this.data.getFeedbackUrl = "https://feedback.visionwbz.top/api.php/feedback/getfeedbackbyuser?id="
+            this.data.getFeedbackUrl = "https://feedback.wentianlin.cn/api.php/feedback/getfeedbackbyuser?id="
         }
         else if(options.mode == 0){
-            this.data.getFeedbackUrl = "https://feedback.visionwbz.top/api.php/feedback/getfeedbackbysupport?id="
+            this.data.getFeedbackUrl = "https://feedback.wentianlin.cn/api.php/feedback/getfeedbackbysupport?id="
         }
 
         this.getFeedback()

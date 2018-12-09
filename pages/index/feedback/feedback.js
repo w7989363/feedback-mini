@@ -15,11 +15,11 @@ Page({
         hasUserInfo: false,
         hasLogin: false,
         // 添加反馈问题api
-        url: "https://feedback.visionwbz.top/api.php/feedback/addFeedback",
+        url: "https://feedback.wentianlin.cn/api.php/feedback/addFeedback",
         // 上传图片api
-        uploadUrl: "https://feedback.visionwbz.top/api.php/feedback/uploadimg",
+        uploadUrl: "https://feedback.wentianlin.cn/api.php/feedback/uploadimg",
         // 删除某条反馈
-        deleteUrl: "https://feedback.visionwbz.top/api.php/feedback/deleteFeedback",
+        deleteUrl: "https://feedback.wentianlin.cn/api.php/feedback/deleteFeedback",
         tags: [],
         btn: {
             loading: false,

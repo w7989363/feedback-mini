@@ -21,9 +21,9 @@ Page({
         // 灰三角
         grayTri: "/image/gray_tri.png",
         // 搜索api
-        searchUrl: "https://feedback.visionwbz.top/api.php/search/search",
+        searchUrl: "https://feedback.wentianlin.cn/api.php/search/search",
         // 点赞api
-        supportUrl: "https://feedback.visionwbz.top/api.php/feedback/support",
+        supportUrl: "https://feedback.wentianlin.cn/api.php/feedback/support",
         // tags的id、selected、name
         tags: [],
         // feedback展示数组

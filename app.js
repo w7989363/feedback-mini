@@ -5,7 +5,7 @@ App({
         hasUserInfo: false,
         hasLogin: false,
         uid: null,
-        tagsUrl: "https://feedback.visionwbz.top/api.php/feedback/gettags",
+        tagsUrl: "https://feedback.wentianlin.cn/api.php/feedback/gettags",
         tags: [],
     },
     onLaunch: function () {
